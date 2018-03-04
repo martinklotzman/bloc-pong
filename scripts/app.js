@@ -4,7 +4,7 @@ var context = canvas.getContext('2d');
 
 // Board
 context.fillStyle = 'black';
-context.fillRect(25, 25, 600, 450);
+context.fillRect(25, 25, canvas.width, canvas.height);
 
 // Player Object constructor
 function Player(x, y) {
@@ -20,8 +20,8 @@ function Player(x, y) {
 }
 
 // Declare new players and ball
-var human = new Player(30,200);
-var computer = new Player(595, 200);
+var human = new Player(25,200);
+var computer = new Player(625, 200);
 var ball = new Ball(325, 250);
 
 function Ball(x, y) {
