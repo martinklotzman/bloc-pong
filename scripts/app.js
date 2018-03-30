@@ -108,8 +108,15 @@ Ball.prototype.move = function(paddle1, paddle2) {
 
   function checkCollision(paddle, axis) {
     var widthheight = axis ==  "x" ? "width" : "height";
+    console.log(paddle[axis]);
     var rectPos = paddle[axis] + paddle[widthheight] / 2;
     return Math.abs(ball[axis] - rectPos);
+
+    // if (axis ===  "x") {
+    //   widthheight = "width";
+    // } else {
+    //   widthheight = "height";
+    // }
   };
 
   var playerX = checkCollision(human, "x");
