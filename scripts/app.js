@@ -13,8 +13,7 @@ function Paddle(x, y, width, height) {
   this.height = height;
   this.color = 'blue';
   this.speed = 10;
-
-};
+}
 
 Paddle.prototype.move = function(direction) {
   if(this.y + direction >= 0 && this.y + this.height + direction <= canvas.height) {
@@ -60,9 +59,8 @@ computer.update = function(ball) {
     diff = 2;
   }
   // Sets the diffictulty
-  computer.move(diff * .45);
+  computer.move(diff * .50);
 };
-
 
 // Ball Object constructor
 function Ball(x, y) {
@@ -71,7 +69,7 @@ function Ball(x, y) {
   this.color = 'white';
   this.radius = 10;
   this.x_speed = -3;
-  this.y_speed = -1;
+  this.y_speed = -2;
 
   this.resetPosition = function() {
     this.x = canvas.width / 2;
@@ -87,7 +85,7 @@ function Ball(x, y) {
     this.resetSpeed();
     this.resetPosition();
   };
-};
+}
 
 Ball.prototype.render = function() {
   context.beginPath();
@@ -170,7 +168,6 @@ var render = function() {
   computer.render();
   ball.render();
   ball.move();
-  // drawScore();
 };
 
 var update = function() {
