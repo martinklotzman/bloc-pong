@@ -142,10 +142,10 @@ function drawScore() {
 
 Ball.prototype.update = function() {
   if(this.x < 0) {
-    leftScored++;
+    rightScored++;
     this.reset();
   } else if(this.x > 650) {
-    rightScored++;
+    leftScored++;
     this.reset();
   }
 
