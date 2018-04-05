@@ -59,7 +59,7 @@ computer.update = function(ball) {
     diff = 2;
   }
   // Sets the diffictulty
-  computer.move(diff * .50);
+  computer.move(diff * .45);
 };
 
 // Ball Object constructor
@@ -69,7 +69,7 @@ function Ball(x, y) {
   this.color = 'white';
   this.radius = 10;
   this.x_speed = -3;
-  this.y_speed = -2;
+  this.y_speed = -1;
 
   this.resetPosition = function() {
     this.x = canvas.width / 2;
@@ -106,7 +106,6 @@ Ball.prototype.move = function(paddle1, paddle2) {
 
   function checkCollision(paddle, axis) {
     var widthheight = axis ==  "x" ? "width" : "height";
-    console.log(paddle[axis]);
     var rectPos = paddle[axis] + paddle[widthheight] / 2;
     return Math.abs(ball[axis] - rectPos);
 
@@ -130,23 +129,30 @@ Ball.prototype.move = function(paddle1, paddle2) {
   }
 };
 
+// Player and Computer scores
+var leftScored = 0;
+var rightScored = 0;
+
+function drawScore() {
+    context.font = "16px Arial";
+    context.fillStyle = "#0095DD";
+    context.fillText("Player: " + leftScored, 10, 20);
+    context.fillText("Computer : " + rightScored, 545, 20);
+}
+
 Ball.prototype.update = function() {
   if(this.x < 0) {
+    leftScored++;
     this.reset();
   } else if(this.x > 650) {
+    rightScored++;
     this.reset();
   }
 
-  // if(rightScored || leftScored) {
-  //   if(rightScored) {
-  //     rightScored++;
-  //   }
-  //   if(leftScored) {
-  //     leftScored++;
-  //   }
-  //   this.reset();
-  // }
-
+  if(leftScored >= 11 || rightScored >= 11) {
+    leftScored = 0;
+    rightScored = 0;
+  }
 };
 
 // Continuously renders the view during gameplay
@@ -168,6 +174,7 @@ var render = function() {
   computer.render();
   ball.render();
   ball.move();
+  drawScore();
 };
 
 var update = function() {
