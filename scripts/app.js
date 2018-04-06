@@ -85,6 +85,18 @@ function Ball(x, y) {
     this.resetSpeed();
     this.resetPosition();
   };
+
+  this.stop = function() {
+    this.resetPosition();
+    this.x_speed = 0;
+    this.y_speed = 0;
+
+    if(humanScore >= 11) {
+      winner.innerHTML = "You won! Reset the browser to play again.";
+    } else if(computerScore >= 11) {
+      winner.innerHTML = "You lost! Reset the browser to play again.";
+    }
+  };
 }
 
 Ball.prototype.render = function() {
@@ -108,12 +120,6 @@ Ball.prototype.move = function(paddle1, paddle2) {
     var widthheight = axis ==  "x" ? "width" : "height";
     var rectPos = paddle[axis] + paddle[widthheight] / 2;
     return Math.abs(ball[axis] - rectPos);
-
-    // if (axis ===  "x") {
-    //   widthheight = "width";
-    // } else {
-    //   widthheight = "height";
-    // }
   };
 
   var playerX = checkCollision(human, "x");
@@ -130,28 +136,38 @@ Ball.prototype.move = function(paddle1, paddle2) {
 };
 
 // Player and Computer scores
-var leftScored = 0;
-var rightScored = 0;
+var computerScore = 0;
+var humanScore = 0;
 
 function drawScore() {
     context.font = "16px Arial";
     context.fillStyle = "#0095DD";
-    context.fillText("Player: " + leftScored, 10, 20);
-    context.fillText("Computer : " + rightScored, 545, 20);
+    context.fillText("Player: " + humanScore, 10, 20);
+    context.fillText("Computer : " + computerScore, 545, 20);
 }
+
+function endGame() {
+  ball.x_speed = 0;
+  ball.y_speed = 0;
+}
+
+// HTML element for end game message
+var winner = document.getElementById('end-game-message');
 
 Ball.prototype.update = function() {
   if(this.x < 0) {
-    rightScored++;
+    computerScore++;
     this.reset();
   } else if(this.x > 650) {
-    leftScored++;
+    humanScore++;
     this.reset();
   }
 
-  if(leftScored >= 11 || rightScored >= 11) {
-    leftScored = 0;
-    rightScored = 0;
+  if(humanScore >= 11 || computerScore >= 11) {
+    this.stop();
+    winner.style.display = 'block';
+    humanScore = 0;
+    computerScore = 0;
   }
 };
 
