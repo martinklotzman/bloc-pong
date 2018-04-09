@@ -59,8 +59,15 @@ computer.update = function(ball) {
     diff = 2;
   }
   // Sets the diffictulty
-  computer.move(diff * .45);
+  computer.move(diff * .50);
 };
+
+// Random speed variable
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+}
 
 // Ball Object constructor
 function Ball(x, y) {
@@ -68,8 +75,9 @@ function Ball(x, y) {
   this.y = y;
   this.color = 'white';
   this.radius = 10;
-  this.x_speed = -3;
-  this.y_speed = -1;
+  this.x_speed = getRandomInt(-2, -4)
+  this.y_speed = getRandomInt(-1, -4);
+
 
   this.resetPosition = function() {
     this.x = canvas.width / 2;
@@ -77,8 +85,8 @@ function Ball(x, y) {
   };
 
   this.resetSpeed = function() {
-    this.x_speed = -3;
-    this.y_speed = -1;
+    this.x_speed = getRandomInt(-2, -4)
+    this.y_speed = getRandomInt(-1, -4);
   };
 
   this.reset = function() {
